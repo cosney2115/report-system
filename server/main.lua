@@ -15,7 +15,12 @@ end
 RegisterNetEvent('cy_reports:server:sendReport', function(title, description)
     local _source = source
 
-    reports[#reports + 1] = {
+    if reports[_source] then
+        TriggerClientEvent('esx:showNotification', _source, 'You already have a report open')
+        return
+    end
+
+    reports[_source] = {
         username = GetPlayerName(_source),
         title = title,
         description = description,
